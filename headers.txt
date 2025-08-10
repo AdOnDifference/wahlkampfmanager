@@ -1,0 +1,9 @@
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Disposition: attachment; filename="einladung.pdf"
+Content-Type: application/pdf
+Content-Length: 479166
+Date: Sun, 10 Aug 2025 15:02:32 GMT
+
