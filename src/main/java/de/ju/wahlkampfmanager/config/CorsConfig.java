@@ -18,7 +18,8 @@ public class CorsConfig {
                         .allowedOriginPatterns(
                                 "http://localhost:3000",
                                 // ALLE Vercel-Preview-Domains erlauben
-                                "https://*.vercel.app"
+                                "https://*.vercel.app",
+                                "https://wahlkampfmanager-frontend.vercel.app"
                         )
                         .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
                         .allowedHeaders("*")
