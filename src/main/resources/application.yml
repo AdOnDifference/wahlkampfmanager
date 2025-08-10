@@ -1,6 +1,13 @@
 spring:
   application:
     name: wahlkampfmanager
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
 logging:
   level:
     root: INFO
+    org.springframework.web: DEBUG
