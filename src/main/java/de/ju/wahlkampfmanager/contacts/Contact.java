@@ -1,6 +1,9 @@
 package de.ju.wahlkampfmanager.contacts;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
@@ -12,8 +15,13 @@ public class Contact {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  // NEU: Vor- und Nachname in eigenen Spalten
   @NotBlank
-  private String name;
+  @Column(name = "first_name")
+  private String firstName;
+
+  @Column(name = "last_name")
+  private String lastName;
 
   private String role;
   private String city;
@@ -27,12 +35,40 @@ public class Contact {
 
   public Contact() {}
 
-  // getters and setters
+  // -------------------------------
+  // Abwärtskompatibilität: "name"
+  // -------------------------------
+  // Wird im JSON weiterhin als Feld "name" ausgegeben,
+  // ist aber virtuell (keine DB-Spalte).
+  @JsonProperty("name")
+  @Transient
+  public String getName() {
+    String fn = firstName == null ? "" : firstName.trim();
+    String ln = lastName  == null ? "" : lastName.trim();
+    return (fn + " " + ln).trim().replaceAll("\\s+", " ");
+  }
+
+  // Akzeptiert weiterhin eingehendes "name" (z. B. altes Frontend)
+  @JsonProperty("name")
+  public void setName(String full) {
+    if (full == null) return;
+    String t = full.trim().replaceAll("\\s+", " ");
+    int i = t.indexOf(' ');
+    if (i < 0) { this.firstName = t; this.lastName = null; }
+    else { this.firstName = t.substring(0, i); this.lastName = t.substring(i + 1); }
+  }
+
+  // --------
+  // Getter/Setter
+  // --------
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }
 
-  public String getName() { return name; }
-  public void setName(String name) { this.name = name; }
+  public String getFirstName() { return firstName; }
+  public void setFirstName(String firstName) { this.firstName = firstName; }
+
+  public String getLastName() { return lastName; }
+  public void setLastName(String lastName) { this.lastName = lastName; }
 
   public String getRole() { return role; }
   public void setRole(String role) { this.role = role; }
