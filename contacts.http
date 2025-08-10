@@ -1,0 +1,38 @@
+### Contacts API examples (IntelliJ HTTP Client)
+
+POST http://localhost:8080/api/contacts
+Content-Type: application/json
+
+{
+  "name": "Max Mustermann",
+  "role": "Presse",
+  "city": "Flörsheim",
+  "email": "max@example.org",
+  "consent": true
+}
+
+###
+
+GET http://localhost:8080/api/contacts
+
+###
+
+GET http://localhost:8080/api/contacts/1
+
+###
+
+PUT http://localhost:8080/api/contacts/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Maximilian Mustermann",
+  "role": "Presse",
+  "city": "Flörsheim",
+  "email": "max@example.org",
+  "consent": true
+}
+
+###
+
+DELETE http://localhost:8080/api/contacts/1
