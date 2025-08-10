@@ -7,15 +7,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig {
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins(
+                        // Entwicklungs-Frontend
+                        .allowedOriginPatterns(
                                 "http://localhost:3000",
-                                "https://wahlkampfmanager-frontend-h7j4s7u6b-daniel-hamzehs-projects.vercel.app"
+                                // ALLE Vercel-Preview-Domains erlauben
+                                "https://*.vercel.app"
                         )
                         .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
                         .allowedHeaders("*")
