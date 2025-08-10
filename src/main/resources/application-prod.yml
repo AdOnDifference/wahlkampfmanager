@@ -13,3 +13,11 @@ spring:
 
 server:
   port: ${PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG

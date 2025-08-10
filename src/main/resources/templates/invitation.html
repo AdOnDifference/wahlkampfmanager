@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Einladung zur Vorstandssitzung</title>
+    <style>
+        @page { size: A4; margin: 22mm 22mm 22mm 22mm; }
+        body { font-family: 'Carlito', sans-serif; font-size: 11pt; line-height: 1.35; color: #000; }
+
+        /* Kopfbereich wie im Word-Dokument: links Empfänger, rechts Absenderblock mit Logo */
+        .topgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8pt;
+            align-items: start;
+            margin-bottom: 10pt;
+        }
+        .to { white-space: pre-line; }
+        .from { text-align: right; }
+        .logo { height: 40px; margin-bottom: 6pt; }
+
+        /* Datumszeile rechts */
+        .date-line { text-align: right; margin: 8pt 0 16pt; }
+
+        /* Betreff zentriert wie im Word-Beispiel */
+        .subject { text-align: center; font-weight: 700; font-size: 16pt; margin: 8pt 0 14pt; }
+
+        /* Fließtext-Abstände */
+        p { margin: 0 0 8pt 0; }
+
+        /* Tagesordnung */
+        h2 { font-weight: 700; font-size: 13pt; margin: 14pt 0 6pt; }
+        ol { margin: 0 0 0 16pt; padding: 0; }
+        ol li { margin: 2pt 0; }
+
+        /* Signaturblock */
+        .sign { margin-top: 18pt; }
+        .sigline { margin-top: 28pt; border-top: 1px solid #000; width: 280px; }
+    </style>
+</head>
+<body>
+
+<div class="topgrid">
+    <div class="to">
+        An den Vorstand und die Mitglieder
+        der Jungen Union Flörsheim
+    </div>
+
+    <div class="from">
+        <img class="logo" src="images/ju-logo-blue.jpg" alt="JU Logo"/>
+        <div>Junge Union Flörsheim</div>
+        <div>Vorstandsvorsitzender</div>
+        <div>Daniel Hamzeh</div>
+        <div>Potsdamer Straße 26</div>
+        <div>65439 Flörsheim</div>
+    </div>
+</div>
+
+<div class="date-line">
+    <!-- Falls du eine eigene Briefstadt schicken willst, füge im JSON "letterCity":"Flörsheim" hinzu -->
+    [[${d.locationCity}]], den [[${dateStr}]]
+</div>
+
+<div class="subject">
+    Einladung zur Vorstandssitzung am [[${dateStr}]]
+</div>
+
+<p>Liebe Vorstandsmitglieder und Mitglieder der JU Flörsheim,</p>
+
+<p>
+    hiermit lade ich Euch herzlich zu unserer Vorstandssitzung am
+</p>
+
+<p>
+    <strong>[[${weekdayStr}]][[${dateStr}]], um [[${timeStr}]] Uhr</strong>
+    ein.
+</p>
+
+<p>
+    Die Sitzung findet im <strong>[[${d.locationName}]]</strong>,
+    [[${d.locationStreet}]] [[${d.locationCity}]] statt.
+</p>
+
+<h2>Tagesordnung:</h2>
+<ol>
+    <li th:each="item : ${d.agenda}" th:text="${item}">Punkt</li>
+</ol>
+
+<p>Ich freue mich, Euch begrüßen zu dürfen.</p>
+
+<div class="sign">
+    Viele Grüße<br/><br/>
+    <div class="sigline"></div>
+    Daniel Hamzeh
+</div>
+
+</body>
+</html>
